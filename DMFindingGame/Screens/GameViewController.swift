@@ -27,21 +27,13 @@ class GameViewController: UIViewController {
      */
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameBrain.newGame(numletters: letterButtons.count)
+        gameBrain.newGame(numLetters: letterButtons.count)
+        updateUI()
         
-        func updatelabels() {
-            targetLetterLabel.text = "\(gameBrain.targetLetter)"
-            scoreLabel.text = "\(gameBrain.score)"
-            secondsLabel.text = "\(gameBrain.secondsRemaining)"
-            print (gameBrain.randomLetters)
-            for (index, button) in letterButtons.enumerated(){
-                button.setTitle(gameBrain.randomLetters[index], for: .normal)
-            }
-            
-        }
         
     }
-            
+    
+    
         /*
          We are invalidating the timer when the screen disappears. You do not need to modify this code.
          */
@@ -54,6 +46,21 @@ class GameViewController: UIViewController {
         /*
          You do not need to modify this code.
          */
+//    func updateLabels() {
+//        targetLetterLabel.text = "\(gameBrain.targetLetter)"
+//        scoreLabel.text = "\(gameBrain.score)"
+//        secondsLabel.text = "\(gameBrain.secondsRemaining)"
+//        print (gameBrain.randomLetters)
+//        for (index, button) in letterButtons.enumerated(){
+//            button.setTitle(gameBrain.randomLetters[index], for: .normal)
+//        }
+//
+//    }
+    @IBAction func letterButtonTapped(_ sender: UIButton) {
+        updateUI()
+        gameBrain.letterSelected(selectedLetter: sender.titleLabel!.text!)
+    }
+    
         func configureTimer() {
              timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: fireTimer(timer:))
             RunLoop.current.add(timer, forMode: .common)
@@ -64,10 +71,10 @@ class GameViewController: UIViewController {
             scoreLabel.text = "Score: \(gameBrain.score)"
             secondsLabel.text = "Seconds: \(gameBrain.secondsRemaining)"
             
-            for (index, letter) in gameBrain.letters.enumerated() {
-                letterButtons[index].setTitle(letter, for: .normal)
+            for (index, button) in letterButtons.enumerated() {
+                button.setTitle(gameBrain.randomLetters[index], for: .normal)
             }
-            updateUI()
+           
         }
         
         /**
@@ -83,10 +90,10 @@ class GameViewController: UIViewController {
             
             if gameBrain.secondsRemaining <= 0 {
                 timer.invalidate()
-                let appDelegate = UIApplication.shared.delegate as? AppDelegate, window = appDelegate?.application{
-                    self.navigationController?.popToRootViewController(animated: true)
-                    window.rootViewController = StartViewController()
-                }
+               
+            navigationController?.popToRootViewController(animated: true)
+                    
+                
             }
         }
     }

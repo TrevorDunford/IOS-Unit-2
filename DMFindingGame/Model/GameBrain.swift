@@ -35,7 +35,7 @@ import CoreData
  */
 class GameBrain {
     var targetLetter = ""
-    var randomLetters = ""
+    var randomLetters = [String]()
     var score = 0
     var highScore = 0
     var numLetters = 0
@@ -43,8 +43,8 @@ class GameBrain {
     var letter = 30
     var letters = ["A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z"]
     
-    func generateRandomLetters(numletters: Int) -> [String] {
-        var randomArray: [String] = [targetLetter]
+    func generateRandomLetters() -> [String] {
+        var randomArray = [targetLetter]
         for _ in 1..<numLetters {
             var randomLetter: String
             repeat {
@@ -60,18 +60,14 @@ class GameBrain {
     
     func newRound() {
         targetLetter = letters.randomElement()!
-        randomLetters = generateRandomLetters(numletters:)
+        randomLetters = generateRandomLetters()
     }
     
-    func newGame(numletters: Int ) -> String {
-        var numLetters : String = randomLetters
-        for letters in letters {
-            let letterCount = letters.count
-            }
+    func newGame(numLetters: Int) {
+        self.numLetters = numLetters
         score = 0
         secondsRemaining = 30
         newRound()
-        return numLetters
        
     }
     

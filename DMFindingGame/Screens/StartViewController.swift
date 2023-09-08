@@ -14,6 +14,7 @@ import CoreData
 class StartViewController: UIViewController {
     
     
+    
     @IBOutlet weak var highScoreLabel: UILabel!
     
     var gameBrain = GameBrain.shared
@@ -23,17 +24,16 @@ class StartViewController: UIViewController {
      */
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        func updateHighScoreLabel() {
             highScoreLabel.text = "High Score: \(gameBrain.highScore)"
-        }
     }
     
     /**
      4.1 Transition the user to the `GameViewController`.
      */
     @IBAction func goToNextScreenButtonTapped(_ sender: UIButton) {
-            let destinationVC = GameViewController()
-            self.navigationController?.pushViewController(destinationVC, animated: true)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let gameVC = storyboard.instantiateViewController(withIdentifier: "GameViewController")
+            self.navigationController?.pushViewController(gameVC, animated: true)
         }
     
 }
