@@ -46,16 +46,7 @@ class GameViewController: UIViewController {
         /*
          You do not need to modify this code.
          */
-//    func updateLabels() {
-//        targetLetterLabel.text = "\(gameBrain.targetLetter)"
-//        scoreLabel.text = "\(gameBrain.score)"
-//        secondsLabel.text = "\(gameBrain.secondsRemaining)"
-//        print (gameBrain.randomLetters)
-//        for (index, button) in letterButtons.enumerated(){
-//            button.setTitle(gameBrain.randomLetters[index], for: .normal)
-//        }
-//
-//    }
+ 
     @IBAction func letterButtonTapped(_ sender: UIButton) {
         updateUI()
         gameBrain.letterSelected(selectedLetter: sender.titleLabel!.text!)
@@ -73,6 +64,7 @@ class GameViewController: UIViewController {
             
             for (index, button) in letterButtons.enumerated() {
                 button.setTitle(gameBrain.randomLetters[index], for: .normal)
+                button.backgroundColor = gameBrain.randomLetters[index] == gameBrain.targetLetter ? .systemRed : .systemBlue
             }
            
         }
